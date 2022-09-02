@@ -328,6 +328,7 @@ var (
 	// a task within a job. It is returned in the TaskConfigSchema RPC
 	taskConfigSpec = hclspec.NewObject(map[string]*hclspec.Spec{
 		"image":                  hclspec.NewAttr("image", "string", true),
+		"platform":               hclspec.NewAttr("platform", "string", false),
 		"advertise_ipv6_address": hclspec.NewAttr("advertise_ipv6_address", "bool", false),
 		"args":                   hclspec.NewAttr("args", "list(string)", false),
 		"auth": hclspec.NewBlock("auth", false, hclspec.NewObject(map[string]*hclspec.Spec{
@@ -457,6 +458,7 @@ type TaskConfig struct {
 	Runtime           string             `codec:"runtime"`
 	PidsLimit         int64              `codec:"pids_limit"`
 	PidMode           string             `codec:"pid_mode"`
+	Platform          string             `codec:"platform"`
 	Ports             []string           `codec:"ports"`
 	PortMap           hclutils.MapStrInt `codec:"port_map"`
 	Privileged        bool               `codec:"privileged"`

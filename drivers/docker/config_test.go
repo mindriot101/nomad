@@ -25,6 +25,23 @@ func TestConfig_ParseHCL(t *testing.T) {
 			}`,
 			&TaskConfig{
 				Image:            "redis:7",
+				Platform:         "",
+				Devices:          []DockerDevice{},
+				Mounts:           []DockerMount{},
+				MountsList:       []DockerMount{},
+				CPUCFSPeriod:     100000,
+				ImagePullTimeout: "5m",
+			},
+		},
+		{
+			"basic image",
+			`config {
+				image = "redis:7"
+				platform = "arm64"
+			}`,
+			&TaskConfig{
+				Image:            "redis:7",
+				Platform:         "arm64",
 				Devices:          []DockerDevice{},
 				Mounts:           []DockerMount{},
 				MountsList:       []DockerMount{},

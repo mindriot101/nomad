@@ -2,6 +2,7 @@ package docker
 
 import (
 	"fmt"
+	"runtime"
 
 	docker "github.com/fsouza/go-dockerclient"
 	"github.com/hashicorp/nomad/plugins/drivers"
@@ -173,6 +174,7 @@ func (d *Driver) pullInfraImage(allocID string) error {
 		d.logger.Debug("auth failed for infra_image container pull", "image", d.config.InfraImage, "error", err)
 	}
 
-	_, err = d.coordinator.PullImage(d.config.InfraImage, authOptions, allocID, noopLogEventFn, d.config.infraImagePullTimeoutDuration, d.config.pullActivityTimeoutDuration)
+	// TODO: work out image platform
+	_, err = d.coordinator.PullImage(d.config.InfraImage, runtime.GOARCH, authOptions, allocID, noopLogEventFn, d.config.infraImagePullTimeoutDuration, d.config.pullActivityTimeoutDuration)
 	return err
 }
